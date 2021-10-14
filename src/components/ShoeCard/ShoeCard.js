@@ -88,10 +88,12 @@ const ImageHoverWrapper = styled.div`
   overflow: hidden;
   border-radius: 16px 16px 4px 4px;
 
-  &:hover ${Image} {
-    transform: scale(var(--scale))
-      translateY(calc((var(--scale) - 1) / 2 * -100%));
-    transition: transform 200ms;
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover ${Image} {
+      transform: scale(var(--scale))
+        translateY(calc((var(--scale) - 1) / 2 * -100%));
+      transition: transform 200ms;
+    }
   }
 `;
 
