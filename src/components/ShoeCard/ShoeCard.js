@@ -35,12 +35,10 @@ const ShoeCard = ({
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
-          <ImageHoverWrapper>
-            <Image alt="" src={imageSrc} />
-          </ImageHoverWrapper>
-          {variant === "on-sale" && <SaleFlag>Sale</SaleFlag>}
-          {variant === "new-release" && <NewFlag>Just released!</NewFlag>}
+          <Image alt="" src={imageSrc} />
         </ImageWrapper>
+        {variant === "on-sale" && <SaleFlag>Sale</SaleFlag>}
+        {variant === "new-release" && <NewFlag>Just released!</NewFlag>}
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
@@ -71,27 +69,30 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  position: relative;
+`;
 
 const ImageWrapper = styled.div`
-  position: relative;
+  overflow: hidden;
+  /* 
+    Image zooms in on hover/focus,
+    truncate the spillover.
+  */
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Image = styled.img`
   display: block;
   width: 100%;
-  transition: transform 500ms;
-`;
+  transform-origin: 50% 75%;
+  transition: transform 600ms;
+  will-change: transform;
 
-const ImageHoverWrapper = styled.div`
-  --scale: 1.12;
-  overflow: hidden;
-  border-radius: 16px 16px 4px 4px;
-
-  @media (prefers-reduced-motion: no-preference) {
-    &:hover ${Image} {
-      transform: scale(var(--scale))
-        translateY(calc((var(--scale) - 1) / 2 * -100%));
+  @media (hover: hover) and (prefers-reduce-motion: no-preference) {
+    ${Link}:hover &,
+    ${Link}:focus & {
+      transform: scale(1.1);
       transition: transform 200ms;
     }
   }
