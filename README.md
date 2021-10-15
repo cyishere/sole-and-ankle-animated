@@ -1,5 +1,7 @@
 The solution for the Module 8's workshop of [css-for-js.dev](https://css-for-js.dev) course.
 
+---
+
 # Sole&Ankle, Animated — Module 8 workshop
 
 Once again, we're working on the sneaker store!
