@@ -78,6 +78,7 @@ const ImageWrapper = styled.div`
 `;
 
 const Image = styled.img`
+  --scale: 1.12;
   display: block;
   width: 100%;
   transition: transform 500ms;
@@ -93,7 +94,6 @@ const Image = styled.img`
 `;
 
 const ImageHoverWrapper = styled.div`
-  --scale: 1.12;
   overflow: hidden;
   border-radius: 16px 16px 4px 4px;
 `;
