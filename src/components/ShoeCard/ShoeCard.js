@@ -81,20 +81,21 @@ const Image = styled.img`
   display: block;
   width: 100%;
   transition: transform 500ms;
+
+  @media (prefers-reduced-motion: no-preference) {
+    ${Link}:hover &,
+    ${Link}:focus & {
+      transform: scale(var(--scale))
+        translateY(calc((var(--scale) - 1) / 2 * -100%));
+      transition: transform 200ms;
+    }
+  }
 `;
 
 const ImageHoverWrapper = styled.div`
   --scale: 1.12;
   overflow: hidden;
   border-radius: 16px 16px 4px 4px;
-
-  @media (prefers-reduced-motion: no-preference) {
-    &:hover ${Image} {
-      transform: scale(var(--scale))
-        translateY(calc((var(--scale) - 1) / 2 * -100%));
-      transition: transform 200ms;
-    }
-  }
 `;
 
 const Row = styled.div`
