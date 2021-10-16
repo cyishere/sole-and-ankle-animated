@@ -11,81 +11,100 @@ import VisuallyHidden from "../VisuallyHidden";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
-    <Overlay isOpen={isOpen} onDismiss={onDismiss}>
+    <Wrapper isOpen={isOpen} onDismiss={onDismiss}>
+      <Dropback />
       <Content aria-label="Menu">
-        <CloseButton onClick={onDismiss}>
-          <Icon id="close" />
-          <VisuallyHidden>Dismiss menu</VisuallyHidden>
-        </CloseButton>
-        <Filler />
-        <Nav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
-        </Nav>
-        <Footer>
-          <SubLink href="/terms">Terms and Conditions</SubLink>
-          <SubLink href="/privacy">Privacy Policy</SubLink>
-          <SubLink href="/contact">Contact Us</SubLink>
-        </Footer>
+        <InnerWrapper>
+          <CloseButton onClick={onDismiss}>
+            <Icon id="close" />
+            <VisuallyHidden>Dismiss menu</VisuallyHidden>
+          </CloseButton>
+          <Filler />
+          <Nav>
+            <NavLink href="/sale">Sale</NavLink>
+            <NavLink href="/new">New&nbsp;Releases</NavLink>
+            <NavLink href="/men">Men</NavLink>
+            <NavLink href="/women">Women</NavLink>
+            <NavLink href="/kids">Kids</NavLink>
+            <NavLink href="/collections">Collections</NavLink>
+          </Nav>
+          <Footer>
+            <SubLink href="/terms">Terms and Conditions</SubLink>
+            <SubLink href="/privacy">Privacy Policy</SubLink>
+            <SubLink href="/contact">Contact Us</SubLink>
+          </Footer>
+        </InnerWrapper>
       </Content>
-    </Overlay>
+    </Wrapper>
   );
 };
 
 const fadeIn = keyframes`
-  0% {
+  from {
     opacity: 0;
   }
-  100% {
+  to {
     opacity: 1;
   }
 `;
 
 const slideIn = keyframes`
-  0% {
-    transform: rotateY(-180deg);
+  from {
+    transform: translateX(100%);
   }
-  100% {
-    transform: rotateY(0deg);
+  to {
+    transform: translateX(0%);
   }
 `;
 
-const Overlay = styled(DialogOverlay)`
+const Wrapper = styled(DialogOverlay)`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-backdrop);
+  background: transparent;
   display: flex;
   justify-content: flex-end;
+`;
+
+const Dropback = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-backdrop);
   animation: ${fadeIn} 500ms;
-  perspective: 500px;
 `;
 
 const Content = styled(DialogContent)`
+  --overfill: 16px;
+  position: relative;
   background: white;
-  width: 300px;
+  width: calc(300px + var(--overfill));
   height: 100%;
   padding: 24px 32px;
+  margin-right: calc(var(--overfill) * -1);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${slideIn} 500ms both cubic-bezier(0, 0.6, 0.32, 1.06);
+    animation-delay: 200ms;
+  }
+`;
+
+const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  transform-origin: right center;
-  transform: translateX(100%);
-  animation: ${slideIn} 300ms;
-  animation-timing-function: cubic-bezier(0.28, 0.51, 0.94, 0.73);
-  animation-delay: 200ms;
-  animation-fill-mode: forwards;
+  height: 100%;
+  animation: ${fadeIn} 600ms both;
+  animation-delay: 400ms;
 `;
 
 const CloseButton = styled(UnstyledButton)`
   position: absolute;
   top: 10px;
-  right: 0;
+  right: var(--overfill);
   padding: 16px;
 `;
 
