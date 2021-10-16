@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-import { QUERIES, WEIGHTS } from "../../constants";
+import { QUERIES } from "../../constants";
 import Logo from "../Logo";
 import Icon from "../Icon";
 import UnstyledButton from "../UnstyledButton";
 import SuperHeader from "../SuperHeader";
 import MobileMenu from "../MobileMenu";
 import VisuallyHidden from "../VisuallyHidden";
+import NavLink from "../NavLink";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -20,26 +21,12 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">
-            <TextWrapper data-content="Sale">Sale</TextWrapper>
-          </NavLink>
-          <NavLink href="/new">
-            <TextWrapper data-content="New&nbsp;Releases">
-              New&nbsp;Releases
-            </TextWrapper>
-          </NavLink>
-          <NavLink href="/men">
-            <TextWrapper data-content="Men">Men</TextWrapper>
-          </NavLink>
-          <NavLink href="/women">
-            <TextWrapper data-content="Women">Women</TextWrapper>
-          </NavLink>
-          <NavLink href="/kids">
-            <TextWrapper data-content="Kids">Kids</TextWrapper>
-          </NavLink>
-          <NavLink href="/collections">
-            <TextWrapper data-content="Collections">Collections</TextWrapper>
-          </NavLink>
+          <NavLink href="/sale">Sale</NavLink>
+          <NavLink href="/new">New&nbsp;Releases</NavLink>
+          <NavLink href="/men">Men</NavLink>
+          <NavLink href="/women">Women</NavLink>
+          <NavLink href="/kids">Kids</NavLink>
+          <NavLink href="/collections">Collections</NavLink>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -125,41 +112,6 @@ const Filler = styled.div`
 
   @media ${QUERIES.tabletAndSmaller} {
     display: none;
-  }
-`;
-
-const TextWrapper = styled.span`
-  display: block;
-  position: relative;
-  transition: transform 300ms;
-
-  &::before {
-    content: attr(data-content);
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: var(--color-gray-900);
-    transform: translateY(100%);
-  }
-`;
-
-const NavLink = styled.a`
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-gray-700);
-  font-weight: ${WEIGHTS.medium};
-  display: block;
-  overflow: hidden;
-
-  &:first-of-type {
-    color: var(--color-secondary);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    &:hover ${TextWrapper} {
-      transform: translateY(-100%);
-    }
   }
 `;
 
